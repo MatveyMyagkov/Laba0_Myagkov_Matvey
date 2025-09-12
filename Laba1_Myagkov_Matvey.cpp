@@ -1,5 +1,6 @@
 #include <iostream>
 #include <windows.h>
+
 using namespace std;
 struct Pipe {
     string Name;
@@ -68,6 +69,7 @@ void ShowMenu() {
 
 int main()
 {
+    setlocale(LC_ALL, "Russian");
     SetConsoleCP(1251);
     SetConsoleOutputCP(1251);
     ShowMenu();
