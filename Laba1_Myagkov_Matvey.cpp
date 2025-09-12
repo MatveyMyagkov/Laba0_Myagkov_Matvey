@@ -1,6 +1,6 @@
 #include <iostream>
 #include <windows.h>
-
+#include <limits>
 using namespace std;
 struct Pipe {
     string Name;
@@ -14,7 +14,7 @@ struct CS {
     int number_work_online;
     string class_cs;
 };
-void addpipe(Pipe& pipe) {
+void Addpipe(Pipe& pipe) {
     system("cls");
     cout << "=== Добавление трубы ===" << endl;
     cout << "Введите километровую отметку (Название трубы): ";
@@ -45,7 +45,7 @@ void addpipe(Pipe& pipe) {
 
 }
 
-void addcs(CS& cs) {
+void Addcs(CS& cs) {
     system("cls");
     cout << "=== Добавление трубы ===" << endl;
     cout << "Введите название КС: ";
@@ -67,6 +67,42 @@ void addcs(CS& cs) {
     cout << "Введите класс станций(некий показатель, обобщающий различные специфические характеристики): ";
     cin.ignore();
     cin >> cs.class_cs;
+
+}
+
+void ViewAllObjects(const Pipe& pipe, const CS& cs) {
+    system("cls");
+    cout << "Просмотр всех объектов" << endl;
+
+    if (pipe.Name.empty()) {
+        cout << "Труба: не добавлена\n";
+    }
+    else {
+        cout << "Труба" << endl;
+        cout << "Название: " << pipe.Name << endl;
+        cout << "Длина: " << pipe.length << " км" << endl;
+        cout << "Диаметр: " << pipe.diametr << " мм" << endl;
+        cout << "Статус: " << (pipe.status ? "В ремонте" : "Работает") << endl;
+    }
+
+    cout << endl;
+
+
+    if (cs.Name.empty()) {
+        cout << "КС: не добавлена" << endl;
+    }
+    else {
+        cout << "Компрессорная станция" << endl;
+        cout << "Название: " << cs.Name << endl;
+        cout << "Всего цехов: " << cs.number_work << endl;
+        cout << "Цехов онлайн: " << cs.number_work_online  << endl;
+        cout << "Класс: " << cs.class_cs << endl;
+    }
+
+
+    cout << "Нажмите Enter для продолжения...";
+    cin.ignore(1000, '\n');
+    while (cin.get() != '\n');
 }
 void ShowMenu() {
     int options;
@@ -74,6 +110,7 @@ void ShowMenu() {
     Pipe pipe;
     CS cs;
     while (flag) {
+        system("cls");
         cout << "Пример меню:\n 1. Добавить трубу\n 2. Добавить КС\n 3. Просмотр всех объектов\n 4. Редактировать трубу\n 5. Редактировать КС\n 6. Сохранить\n 7. Загрузить\n 0. Выход\n";
         cin >> options;
         switch (options) {
@@ -82,14 +119,16 @@ void ShowMenu() {
             flag = false;
             break;
         case 1:
-            addpipe(pipe);
-            system("cls");
+            Addpipe(pipe);       
             cout << "Труба успешно добавлена!" << endl;
             break;
         case 2:
-            addcs(cs);
-            system("cls");
-            cout << "КС успешно добавлен!" << endl;
+            Addcs(cs);
+            cout << "КС успешно добавлена!" << endl;
+            break;
+
+        case 3:
+            ViewAllObjects(pipe, cs);
             break;
         }
     }
