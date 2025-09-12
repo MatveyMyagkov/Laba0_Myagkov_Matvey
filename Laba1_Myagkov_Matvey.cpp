@@ -9,7 +9,7 @@ struct Pipe {
     bool status;
 };
 struct CS {
-    string name;
+    string Name;
     int number_work;
     int number_work_online;
     string class_cs;
@@ -43,12 +43,36 @@ void addpipe(Pipe& pipe) {
     }
     pipe.status = (repairStatus == 1);
 
-    cout << "Труба успешно добавлена!" << endl;
+}
+
+void addcs(CS& cs) {
+    system("cls");
+    cout << "=== Добавление трубы ===" << endl;
+    cout << "Введите название КС: ";
+    cin.ignore();
+    cin >> cs.Name;
+    cout << "Введите количество цехов: ";
+    while (!(cin >> cs.number_work) || cs.number_work <= 0 || cin.peek() != '\n') {
+        cout << "Ошибка! Введите положительное целое число: ";
+        cin.clear();
+        cin.ignore(1000, '\n');
+
+    }
+    cout << "Введите диаметр трубы (мм): ";
+    while (!(cin >> cs.number_work_online) || cs.number_work_online <= 0 || cin.peek() != '\n' || cs.number_work < cs.number_work_online) {
+        cout << "Ошибка! Введите положительное целое число (Онлайн цехи не могут превышать количество цехов): ";
+        cin.clear();
+        cin.ignore(1000, '\n');
+    }
+    cout << "Введите класс станций(некий показатель, обобщающий различные специфические характеристики): ";
+    cin.ignore();
+    cin >> cs.class_cs;
 }
 void ShowMenu() {
     int options;
     bool flag = true;
     Pipe pipe;
+    CS cs;
     while (flag) {
         cout << "Пример меню:\n 1. Добавить трубу\n 2. Добавить КС\n 3. Просмотр всех объектов\n 4. Редактировать трубу\n 5. Редактировать КС\n 6. Сохранить\n 7. Загрузить\n 0. Выход\n";
         cin >> options;
@@ -62,7 +86,11 @@ void ShowMenu() {
             system("cls");
             cout << "Труба успешно добавлена!" << endl;
             break;
-
+        case 2:
+            addcs(cs);
+            system("cls");
+            cout << "КС успешно добавлен!" << endl;
+            break;
         }
     }
 }
