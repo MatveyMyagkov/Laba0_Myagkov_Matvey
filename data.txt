@@ -2,14 +2,14 @@
 ======================================
 
 Pipe
-Name: Pipe1
-Length: 10 km
-Diameter: 10 mm
-Status: Worked
+Name: a
+Length: 100 km
+Diameter: 100 mm
+Status: Not worked
 
 CS
-Name: CS1
-all workshop: 10
-Online workshop: 9
-Class: super
+Name: a
+all workshop: 100
+Online workshop: 100
+Class: 1
 

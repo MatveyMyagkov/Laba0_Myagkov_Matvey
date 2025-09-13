@@ -1,7 +1,7 @@
 ﻿#include <iostream>
 #include <windows.h>
-
 #include <fstream>
+#include <string>
 using namespace std;
 struct Pipe {
     string Name;
@@ -285,6 +285,84 @@ void SaveToFile(const Pipe& pipe, const CS& cs) {
     while (cin.get() != '\n');
 }
 
+void LoadFromFile(Pipe& pipe, CS& cs) {
+    ifstream inFile("data.txt");
+
+    if (!inFile.is_open()) {
+        cout << "Ошибка: Не удалось открыть файл 'data.txt'!" << endl;
+        cout << "Нажмите Enter для продолжения...";
+        cin.ignore(1000, '\n');
+        while (cin.get() != '\n');
+        return;
+    }
+
+    string line;
+    bool readingPipe = false;
+    bool readingCS = false;
+
+    pipe = Pipe();
+    cs = CS();
+
+    while (getline(inFile, line)) {
+        if (line.find("Pipe") != string::npos) {
+            readingPipe = true;
+            readingCS = false;
+            continue;
+        }
+        else if (line.find("CS") != string::npos) {
+            readingPipe = false;
+            readingCS = true;
+            continue;
+        }
+        else if (line.find("Name: ") != string::npos) {
+            if (readingPipe) {
+                pipe.Name = line.substr(6);
+            }
+            if (readingCS) {
+                cs.Name = line.substr(6);
+            }
+        }
+        else if (line.find("Length: ") != string::npos) {
+            size_t pos = line.find(" km");
+            if (pos != string::npos) {
+                string lengthStr = line.substr(8, pos - 8);
+                pipe.length = stof(lengthStr);
+            }
+        }
+        else if (line.find("Diameter: ") != string::npos) {
+            size_t pos = line.find(" mm");
+            if (pos != string::npos) {
+                string diamStr = line.substr(10, pos - 10);
+                pipe.diametr = stoi(diamStr);
+            }
+        }
+        else if (line.find("Status: ") != string::npos) {
+            if (line.find("Not worked") != string::npos) {
+                pipe.status = true;
+            }
+            else if (line.find("Worked") != string::npos) {
+                pipe.status = false;
+            }
+        }
+        else if (line.find("all workshop: ") != string::npos) {
+            cs.number_work = stoi(line.substr(14));
+        }
+        else if (line.find("Online workshop: ") != string::npos) {
+            cs.number_work_online = stoi(line.substr(17));
+        }
+        else if (line.find("Class: ") != string::npos) {
+            cs.class_cs = line.substr(7);
+        }
+    }
+
+    inFile.close();
+
+    cout << "Данные успешно загружены из файла 'data.txt'!" << endl;
+    cout << "Нажмите Enter для продолжения...";
+    cin.ignore(1000, '\n');
+    while (cin.get() != '\n');
+}
+
 void ShowMenu() {
     int options;
     bool flag = true;
@@ -320,6 +398,14 @@ void ShowMenu() {
         case 6:
             SaveToFile(pipe, cs);
             break;
+        case 7:
+            LoadFromFile(pipe, cs);
+            break;
+        default:
+            cout << "Неверный выбор! Попробуйте снова." << endl;
+            cin.ignore(1000, '\n');
+            while (cin.get() != '\n');
+            break;
         }
     }
 }
@@ -327,8 +413,8 @@ void ShowMenu() {
 int main()
 {
     setlocale(LC_ALL, "Russian");
-    SetConsoleOutputCP(65001);
-    SetConsoleCP(65001);
+    SetConsoleCP(1251);
+    SetConsoleOutputCP(1251);
     ShowMenu();
 
 }
