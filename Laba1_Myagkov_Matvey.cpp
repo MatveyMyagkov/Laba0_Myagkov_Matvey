@@ -372,6 +372,11 @@ void ShowMenu() {
         system("cls");
         cout << "Пример меню:\n 1. Добавить трубу\n 2. Добавить КС\n 3. Просмотр всех объектов\n 4. Редактировать трубу\n 5. Редактировать КС\n 6. Сохранить\n 7. Загрузить\n 0. Выход\n";
         cin >> options;
+        while (!(cin >> options) || options < 0 || options > 7) {
+            cout << "Ошибка! Введите число от 0 до 7: ";
+            cin.clear();
+            cin.ignore(1000, '\n');
+        }
         switch (options) {
         case 0:
             cout << "Complete";
@@ -401,12 +406,8 @@ void ShowMenu() {
         case 7:
             LoadFromFile(pipe, cs);
             break;
-        default:
-            cout << "Неверный выбор! Попробуйте снова." << endl;
-            cin.ignore(1000, '\n');
-            while (cin.get() != '\n');
-            break;
         }
+        cin.ignore(1000, '\n');
     }
 }
 
