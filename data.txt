@@ -1,0 +1,15 @@
+=== Pipeline system data ===
+======================================
+
+Pipe
+Name: Pipe1
+Length: 10 km
+Diameter: 10 mm
+Status: Worked
+
+CS
+Name: CS1
+all workshop: 10
+Online workshop: 9
+Class: super
+

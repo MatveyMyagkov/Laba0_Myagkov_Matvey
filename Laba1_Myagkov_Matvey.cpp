@@ -1,6 +1,7 @@
-#include <iostream>
+ï»¿#include <iostream>
 #include <windows.h>
 
+#include <fstream>
 using namespace std;
 struct Pipe {
     string Name;
@@ -16,28 +17,28 @@ struct CS {
 };
 void Addpipe(Pipe& pipe) {
     system("cls");
-    cout << "=== Äîáàâëåíèå òðóáû ===" << endl;
-    cout << "Ââåäèòå êèëîìåòðîâóþ îòìåòêó (Íàçâàíèå òðóáû): ";
+    cout << "=== Ð”Ð¾Ð±Ð°Ð²Ð»ÐµÐ½Ð¸Ðµ Ñ‚Ñ€ÑƒÐ±Ñ‹ ===" << endl;
+    cout << "Ð’Ð²ÐµÐ´Ð¸Ñ‚Ðµ ÐºÐ¸Ð»Ð¾Ð¼ÐµÑ‚Ñ€Ð¾Ð²ÑƒÑŽ Ð¾Ñ‚Ð¼ÐµÑ‚ÐºÑƒ (ÐÐ°Ð·Ð²Ð°Ð½Ð¸Ðµ Ñ‚Ñ€ÑƒÐ±Ñ‹): ";
     cin.ignore();
     cin >> pipe.Name;
-    cout << "Ââåäèòå äëèíó òðóáû (êì): ";
+    cout << "Ð’Ð²ÐµÐ´Ð¸Ñ‚Ðµ Ð´Ð»Ð¸Ð½Ñƒ Ñ‚Ñ€ÑƒÐ±Ñ‹ (ÐºÐ¼): ";
     while (!(cin >> pipe.length) || pipe.length <= 0) {
-        cout << "Îøèáêà! Ââåäèòå ïîëîæèòåëüíîå ÷èñëî: ";
+        cout << "ÐžÑˆÐ¸Ð±ÐºÐ°! Ð’Ð²ÐµÐ´Ð¸Ñ‚Ðµ Ð¿Ð¾Ð»Ð¾Ð¶Ð¸Ñ‚ÐµÐ»ÑŒÐ½Ð¾Ðµ Ñ‡Ð¸ÑÐ»Ð¾: ";
         cin.clear();
         cin.ignore(1000, '\n');
 
     }
-    cout << "Ââåäèòå äèàìåòð òðóáû (ìì): ";
+    cout << "Ð’Ð²ÐµÐ´Ð¸Ñ‚Ðµ Ð´Ð¸Ð°Ð¼ÐµÑ‚Ñ€ Ñ‚Ñ€ÑƒÐ±Ñ‹ (Ð¼Ð¼): ";
     while (!(cin >> pipe.diametr) || pipe.diametr <= 0 || cin.peek() != '\n') {
-        cout << "Îøèáêà! Ââåäèòå ïîëîæèòåëüíîå ÷èñëî: ";
+        cout << "ÐžÑˆÐ¸Ð±ÐºÐ°! Ð’Ð²ÐµÐ´Ð¸Ñ‚Ðµ Ð¿Ð¾Ð»Ð¾Ð¶Ð¸Ñ‚ÐµÐ»ÑŒÐ½Ð¾Ðµ Ñ‡Ð¸ÑÐ»Ð¾: ";
         cin.clear();
         cin.ignore(1000, '\n');
     }
 
-    cout << "Òðóáà â ðåìîíòå? (1 - äà, 0 - íåò): ";
+    cout << "Ð¢Ñ€ÑƒÐ±Ð° Ð² Ñ€ÐµÐ¼Ð¾Ð½Ñ‚Ðµ? (1 - Ð´Ð°, 0 - Ð½ÐµÑ‚): ";
     int repairStatus;
     while (!(cin >> repairStatus) || (repairStatus != 0 && repairStatus != 1)) {
-        cout << "Îøèáêà! Ââåäèòå 0 èëè 1: ";
+        cout << "ÐžÑˆÐ¸Ð±ÐºÐ°! Ð’Ð²ÐµÐ´Ð¸Ñ‚Ðµ 0 Ð¸Ð»Ð¸ 1: ";
         cin.clear();
         cin.ignore(1000, '\n');
     }
@@ -47,24 +48,24 @@ void Addpipe(Pipe& pipe) {
 
 void Addcs(CS& cs) {
     system("cls");
-    cout << "=== Äîáàâëåíèå ÊÑ ===" << endl;
-    cout << "Ââåäèòå íàçâàíèå ÊÑ: ";
+    cout << "=== Ð”Ð¾Ð±Ð°Ð²Ð»ÐµÐ½Ð¸Ðµ ÐšÐ¡ ===" << endl;
+    cout << "Ð’Ð²ÐµÐ´Ð¸Ñ‚Ðµ Ð½Ð°Ð·Ð²Ð°Ð½Ð¸Ðµ ÐšÐ¡: ";
     cin.ignore();
     cin >> cs.Name;
-    cout << "Ââåäèòå êîëè÷åñòâî öåõîâ: ";
+    cout << "Ð’Ð²ÐµÐ´Ð¸Ñ‚Ðµ ÐºÐ¾Ð»Ð¸Ñ‡ÐµÑÑ‚Ð²Ð¾ Ñ†ÐµÑ…Ð¾Ð²: ";
     while (!(cin >> cs.number_work) || cs.number_work <= 0 || cin.peek() != '\n') {
-        cout << "Îøèáêà! Ââåäèòå ïîëîæèòåëüíîå öåëîå ÷èñëî: ";
+        cout << "ÐžÑˆÐ¸Ð±ÐºÐ°! Ð’Ð²ÐµÐ´Ð¸Ñ‚Ðµ Ð¿Ð¾Ð»Ð¾Ð¶Ð¸Ñ‚ÐµÐ»ÑŒÐ½Ð¾Ðµ Ñ†ÐµÐ»Ð¾Ðµ Ñ‡Ð¸ÑÐ»Ð¾: ";
         cin.clear();
         cin.ignore(1000, '\n');
 
     }
-    cout << "Ââåäèòå êîëè÷åñòâî ðàáîòàþùèõ öåõîâ: ";
+    cout << "Ð’Ð²ÐµÐ´Ð¸Ñ‚Ðµ ÐºÐ¾Ð»Ð¸Ñ‡ÐµÑÑ‚Ð²Ð¾ Ñ€Ð°Ð±Ð¾Ñ‚Ð°ÑŽÑ‰Ð¸Ñ… Ñ†ÐµÑ…Ð¾Ð²: ";
     while (!(cin >> cs.number_work_online) || cs.number_work_online < 0 || cin.peek() != '\n' || cs.number_work < cs.number_work_online) {
-        cout << "Îøèáêà! Ââåäèòå ïîëîæèòåëüíîå öåëîå ÷èñëî (Ðàáîòàþùèå öåõà íå ìîãóò ïðåâûøàòü êîëè÷åñòâî öåõîâ): ";
+        cout << "ÐžÑˆÐ¸Ð±ÐºÐ°! Ð’Ð²ÐµÐ´Ð¸Ñ‚Ðµ Ð¿Ð¾Ð»Ð¾Ð¶Ð¸Ñ‚ÐµÐ»ÑŒÐ½Ð¾Ðµ Ñ†ÐµÐ»Ð¾Ðµ Ñ‡Ð¸ÑÐ»Ð¾ (Ð Ð°Ð±Ð¾Ñ‚Ð°ÑŽÑ‰Ð¸Ðµ Ñ†ÐµÑ…Ð° Ð½Ðµ Ð¼Ð¾Ð³ÑƒÑ‚ Ð¿Ñ€ÐµÐ²Ñ‹ÑˆÐ°Ñ‚ÑŒ ÐºÐ¾Ð»Ð¸Ñ‡ÐµÑÑ‚Ð²Ð¾ Ñ†ÐµÑ…Ð¾Ð²): ";
         cin.clear();
         cin.ignore(1000, '\n');
     }
-    cout << "Ââåäèòå êëàññ ñòàíöèé(íåêèé ïîêàçàòåëü, îáîáùàþùèé ðàçëè÷íûå ñïåöèôè÷åñêèå õàðàêòåðèñòèêè): ";
+    cout << "Ð’Ð²ÐµÐ´Ð¸Ñ‚Ðµ ÐºÐ»Ð°ÑÑ ÑÑ‚Ð°Ð½Ñ†Ð¸Ð¹(Ð½ÐµÐºÐ¸Ð¹ Ð¿Ð¾ÐºÐ°Ð·Ð°Ñ‚ÐµÐ»ÑŒ, Ð¾Ð±Ð¾Ð±Ñ‰Ð°ÑŽÑ‰Ð¸Ð¹ Ñ€Ð°Ð·Ð»Ð¸Ñ‡Ð½Ñ‹Ðµ ÑÐ¿ÐµÑ†Ð¸Ñ„Ð¸Ñ‡ÐµÑÐºÐ¸Ðµ Ñ…Ð°Ñ€Ð°ÐºÑ‚ÐµÑ€Ð¸ÑÑ‚Ð¸ÐºÐ¸): ";
     cin.ignore();
     cin >> cs.class_cs;
 
@@ -72,35 +73,35 @@ void Addcs(CS& cs) {
 
 void ViewAllObjects(const Pipe& pipe, const CS& cs) {
     system("cls");
-    cout << "Ïðîñìîòð âñåõ îáúåêòîâ" << endl;
+    cout << "ÐŸÑ€Ð¾ÑÐ¼Ð¾Ñ‚Ñ€ Ð²ÑÐµÑ… Ð¾Ð±ÑŠÐµÐºÑ‚Ð¾Ð²" << endl;
 
     if (pipe.Name.empty()) {
-        cout << "Òðóáà: íå äîáàâëåíà\n";
+        cout << "Ð¢Ñ€ÑƒÐ±Ð°: Ð½Ðµ Ð´Ð¾Ð±Ð°Ð²Ð»ÐµÐ½Ð°\n";
     }
     else {
-        cout << "Òðóáà" << endl;
-        cout << "Íàçâàíèå: " << pipe.Name << endl;
-        cout << "Äëèíà: " << pipe.length << " êì" << endl;
-        cout << "Äèàìåòð: " << pipe.diametr << " ìì" << endl;
-        cout << "Ñòàòóñ: " << (pipe.status ? "Â ðåìîíòå" : "Ðàáîòàåò") << endl;
+        cout << "Ð¢Ñ€ÑƒÐ±Ð°" << endl;
+        cout << "ÐÐ°Ð·Ð²Ð°Ð½Ð¸Ðµ: " << pipe.Name << endl;
+        cout << "Ð”Ð»Ð¸Ð½Ð°: " << pipe.length << " ÐºÐ¼" << endl;
+        cout << "Ð”Ð¸Ð°Ð¼ÐµÑ‚Ñ€: " << pipe.diametr << " Ð¼Ð¼" << endl;
+        cout << "Ð¡Ñ‚Ð°Ñ‚ÑƒÑ: " << (pipe.status ? "Ð’ Ñ€ÐµÐ¼Ð¾Ð½Ñ‚Ðµ" : "Ð Ð°Ð±Ð¾Ñ‚Ð°ÐµÑ‚") << endl;
     }
 
     cout << endl;
 
 
     if (cs.Name.empty()) {
-        cout << "ÊÑ: íå äîáàâëåíà" << endl;
+        cout << "ÐšÐ¡: Ð½Ðµ Ð´Ð¾Ð±Ð°Ð²Ð»ÐµÐ½Ð°" << endl;
     }
     else {
-        cout << "Êîìïðåññîðíàÿ ñòàíöèÿ" << endl;
-        cout << "Íàçâàíèå: " << cs.Name << endl;
-        cout << "Âñåãî öåõîâ: " << cs.number_work << endl;
-        cout << "Öåõîâ îíëàéí: " << cs.number_work_online  << endl;
-        cout << "Êëàññ: " << cs.class_cs << endl;
+        cout << "ÐšÐ¾Ð¼Ð¿Ñ€ÐµÑÑÐ¾Ñ€Ð½Ð°Ñ ÑÑ‚Ð°Ð½Ñ†Ð¸Ñ" << endl;
+        cout << "ÐÐ°Ð·Ð²Ð°Ð½Ð¸Ðµ: " << cs.Name << endl;
+        cout << "Ð’ÑÐµÐ³Ð¾ Ñ†ÐµÑ…Ð¾Ð²: " << cs.number_work << endl;
+        cout << "Ð¦ÐµÑ…Ð¾Ð² Ð¾Ð½Ð»Ð°Ð¹Ð½: " << cs.number_work_online  << endl;
+        cout << "ÐšÐ»Ð°ÑÑ: " << cs.class_cs << endl;
     }
 
 
-    cout << "Íàæìèòå Enter äëÿ ïðîäîëæåíèÿ...";
+    cout << "ÐÐ°Ð¶Ð¼Ð¸Ñ‚Ðµ Enter Ð´Ð»Ñ Ð¿Ñ€Ð¾Ð´Ð¾Ð»Ð¶ÐµÐ½Ð¸Ñ...";
     cin.ignore(1000, '\n');
     while (cin.get() != '\n');
 }
@@ -108,52 +109,52 @@ void ViewAllObjects(const Pipe& pipe, const CS& cs) {
 void EditPipe(Pipe& pipe) {
     if (pipe.Name.empty()) {
         system("cls");
-        cout << "Îøèáêà: Òðóáà íå äîáàâëåíà!" << endl;
-        cout << "Ñíà÷àëà äîáàâüòå òðóáó ÷åðåç ìåíþ." << endl;
-        cout << "Íàæìèòå Enter äëÿ ïðîäîëæåíèÿ...";
+        cout << "ÐžÑˆÐ¸Ð±ÐºÐ°: Ð¢Ñ€ÑƒÐ±Ð° Ð½Ðµ Ð´Ð¾Ð±Ð°Ð²Ð»ÐµÐ½Ð°!" << endl;
+        cout << "Ð¡Ð½Ð°Ñ‡Ð°Ð»Ð° Ð´Ð¾Ð±Ð°Ð²ÑŒÑ‚Ðµ Ñ‚Ñ€ÑƒÐ±Ñƒ Ñ‡ÐµÑ€ÐµÐ· Ð¼ÐµÐ½ÑŽ." << endl;
+        cout << "ÐÐ°Ð¶Ð¼Ð¸Ñ‚Ðµ Enter Ð´Ð»Ñ Ð¿Ñ€Ð¾Ð´Ð¾Ð»Ð¶ÐµÐ½Ð¸Ñ...";
         cin.ignore(1000, '\n');
         while (cin.get() != '\n');
         return;
     }
 
     system("cls");
-    cout << "=== Ðåäàêòèðîâàíèå òðóáû ===" << endl;
-    cout << "Òåêóùèå äàííûå:" << endl;
-    cout << "1. Íàçâàíèå: " << pipe.Name << endl;
-    cout << "2. Äëèíà: " << pipe.length << " êì" << endl;
-    cout << "3. Äèàìåòð: " << pipe.diametr << " ìì" << endl;
-    cout << "4. Ñòàòóñ: " << (pipe.status ? "Â ðåìîíòå" : "Ðàáîòàåò") << endl;
+    cout << "=== Ð ÐµÐ´Ð°ÐºÑ‚Ð¸Ñ€Ð¾Ð²Ð°Ð½Ð¸Ðµ Ñ‚Ñ€ÑƒÐ±Ñ‹ ===" << endl;
+    cout << "Ð¢ÐµÐºÑƒÑ‰Ð¸Ðµ Ð´Ð°Ð½Ð½Ñ‹Ðµ:" << endl;
+    cout << "1. ÐÐ°Ð·Ð²Ð°Ð½Ð¸Ðµ: " << pipe.Name << endl;
+    cout << "2. Ð”Ð»Ð¸Ð½Ð°: " << pipe.length << " ÐºÐ¼" << endl;
+    cout << "3. Ð”Ð¸Ð°Ð¼ÐµÑ‚Ñ€: " << pipe.diametr << " Ð¼Ð¼" << endl;
+    cout << "4. Ð¡Ñ‚Ð°Ñ‚ÑƒÑ: " << (pipe.status ? "Ð’ Ñ€ÐµÐ¼Ð¾Ð½Ñ‚Ðµ" : "Ð Ð°Ð±Ð¾Ñ‚Ð°ÐµÑ‚") << endl;
 
-    cout << "\n×òî âû õîòèòå èçìåíèòü?" << endl;
-    cout << "1 - Èçìåíèòü ñòàòóñ ðåìîíòà" << endl;
-    cout << "2 - Âåðíóòüñÿ â ìåíþ" << endl;
-    cout << "Âûáåðèòå äåéñòâèå: ";
+    cout << "\nÐ§Ñ‚Ð¾ Ð²Ñ‹ Ñ…Ð¾Ñ‚Ð¸Ñ‚Ðµ Ð¸Ð·Ð¼ÐµÐ½Ð¸Ñ‚ÑŒ?" << endl;
+    cout << "1 - Ð˜Ð·Ð¼ÐµÐ½Ð¸Ñ‚ÑŒ ÑÑ‚Ð°Ñ‚ÑƒÑ Ñ€ÐµÐ¼Ð¾Ð½Ñ‚Ð°" << endl;
+    cout << "2 - Ð’ÐµÑ€Ð½ÑƒÑ‚ÑŒÑÑ Ð² Ð¼ÐµÐ½ÑŽ" << endl;
+    cout << "Ð’Ñ‹Ð±ÐµÑ€Ð¸Ñ‚Ðµ Ð´ÐµÐ¹ÑÑ‚Ð²Ð¸Ðµ: ";
 
     int choice;
     while (!(cin >> choice) || (choice != 1 && choice != 2)) {
-        cout << "Îøèáêà! Ââåäèòå 1 èëè 2: ";
+        cout << "ÐžÑˆÐ¸Ð±ÐºÐ°! Ð’Ð²ÐµÐ´Ð¸Ñ‚Ðµ 1 Ð¸Ð»Ð¸ 2: ";
         cin.clear();
         cin.ignore(1000, '\n');
     }
 
     if (choice == 1) {
-        cout << "Òåêóùèé ñòàòóñ: " << (pipe.status ? "Â ðåìîíòå" : "Ðàáîòàåò") << endl;
-        cout << "Èçìåíèòü ñòàòóñ? (1 - äà, 0 - íåò): ";
+        cout << "Ð¢ÐµÐºÑƒÑ‰Ð¸Ð¹ ÑÑ‚Ð°Ñ‚ÑƒÑ: " << (pipe.status ? "Ð’ Ñ€ÐµÐ¼Ð¾Ð½Ñ‚Ðµ" : "Ð Ð°Ð±Ð¾Ñ‚Ð°ÐµÑ‚") << endl;
+        cout << "Ð˜Ð·Ð¼ÐµÐ½Ð¸Ñ‚ÑŒ ÑÑ‚Ð°Ñ‚ÑƒÑ? (1 - Ð´Ð°, 0 - Ð½ÐµÑ‚): ";
 
         int change;
         while (!(cin >> change) || (change != 0 && change != 1)) {
-            cout << "Îøèáêà! Ââåäèòå 0 èëè 1: ";
+            cout << "ÐžÑˆÐ¸Ð±ÐºÐ°! Ð’Ð²ÐµÐ´Ð¸Ñ‚Ðµ 0 Ð¸Ð»Ð¸ 1: ";
             cin.clear();
             cin.ignore(1000, '\n');
         }
 
         if (change == 1) {
             pipe.status = !pipe.status;
-            cout << "Ñòàòóñ èçìåíåí. Òåïåðü òðóáà "<< (pipe.status ? "â ðåìîíòå" : "ðàáîòàåò") << "!" << endl;
+            cout << "Ð¡Ñ‚Ð°Ñ‚ÑƒÑ Ð¸Ð·Ð¼ÐµÐ½ÐµÐ½. Ð¢ÐµÐ¿ÐµÑ€ÑŒ Ñ‚Ñ€ÑƒÐ±Ð° "<< (pipe.status ? "Ð² Ñ€ÐµÐ¼Ð¾Ð½Ñ‚Ðµ" : "Ñ€Ð°Ð±Ð¾Ñ‚Ð°ÐµÑ‚") << "!" << endl;
         }
     }
 
-    cout << "Íàæìèòå Enter äëÿ ïðîäîëæåíèÿ...";
+    cout << "ÐÐ°Ð¶Ð¼Ð¸Ñ‚Ðµ Enter Ð´Ð»Ñ Ð¿Ñ€Ð¾Ð´Ð¾Ð»Ð¶ÐµÐ½Ð¸Ñ...";
     cin.ignore(1000, '\n');
     while (cin.get() != '\n');
 }
@@ -161,45 +162,45 @@ void EditPipe(Pipe& pipe) {
 void EditCS(CS& cs) {
     if (cs.Name.empty()) {
         system("cls");
-        cout << "Îøèáêà: ÊÑ íå äîáàâëåíà!" << endl;
-        cout << "Ñíà÷àëà äîáàâüòå ÊÑ ÷åðåç ìåíþ." << endl;
-    cout << "Íàæìèòå Enter äëÿ ïðîäîëæåíèÿ...";
+        cout << "ÐžÑˆÐ¸Ð±ÐºÐ°: ÐšÐ¡ Ð½Ðµ Ð´Ð¾Ð±Ð°Ð²Ð»ÐµÐ½Ð°!" << endl;
+        cout << "Ð¡Ð½Ð°Ñ‡Ð°Ð»Ð° Ð´Ð¾Ð±Ð°Ð²ÑŒÑ‚Ðµ ÐšÐ¡ Ñ‡ÐµÑ€ÐµÐ· Ð¼ÐµÐ½ÑŽ." << endl;
+    cout << "ÐÐ°Ð¶Ð¼Ð¸Ñ‚Ðµ Enter Ð´Ð»Ñ Ð¿Ñ€Ð¾Ð´Ð¾Ð»Ð¶ÐµÐ½Ð¸Ñ...";
     cin.ignore(1000, '\n');
     while (cin.get() != '\n');
     return;
     }
 
     system("cls");
-    cout << "=== ÐÅÄÀÊÒÈÐÎÂÀÍÈÅ ÊÎÌÏÐÅÑÑÎÐÍÎÉ ÑÒÀÍÖÈÈ ===" << endl;
-    cout << "Òåêóùèå äàííûå:" << endl;
-    cout << "1. Íàçâàíèå: " << cs.Name << endl;
-    cout << "2. Âñåãî öåõîâ: " << cs.number_work << endl;
-    cout << "3. Ðàáîòàþùèõ öåõîâ: " << cs.number_work_online << endl;
-    cout << "4. Êëàññ: " << cs.class_cs << endl;
+    cout << "=== Ð ÐµÐ´Ð°ÐºÑ‚Ð¸Ñ€Ð¾Ð²Ð°Ð½Ð¸Ðµ ÐºÐ¾Ð¼Ð¿Ñ€ÐµÑÑÐ¾Ñ€Ð½Ð¾Ð¹ ÑÑ‚Ð°Ð½Ñ†Ð¸Ð¸ ===" << endl;
+    cout << "Ð¢ÐµÐºÑƒÑ‰Ð¸Ðµ Ð´Ð°Ð½Ð½Ñ‹Ðµ:" << endl;
+    cout << "1. ÐÐ°Ð·Ð²Ð°Ð½Ð¸Ðµ: " << cs.Name << endl;
+    cout << "2. Ð’ÑÐµÐ³Ð¾ Ñ†ÐµÑ…Ð¾Ð²: " << cs.number_work << endl;
+    cout << "3. Ð Ð°Ð±Ð¾Ñ‚Ð°ÑŽÑ‰Ð¸Ñ… Ñ†ÐµÑ…Ð¾Ð²: " << cs.number_work_online << endl;
+    cout << "4. ÐšÐ»Ð°ÑÑ: " << cs.class_cs << endl;
 
-    cout << "\n×òî âû õîòèòå èçìåíèòü?" << endl;
-    cout << "1 - Èçìåíèòü êîëè÷åñòâî ðàáîòàþùèõ öåõîâ" << endl;
-    cout << "2 - Âåðíóòüñÿ â ìåíþ" << endl;
-    cout << "Âûáåðèòå äåéñòâèå: ";
+    cout << "\nÐ§Ñ‚Ð¾ Ð²Ñ‹ Ñ…Ð¾Ñ‚Ð¸Ñ‚Ðµ Ð¸Ð·Ð¼ÐµÐ½Ð¸Ñ‚ÑŒ?" << endl;
+    cout << "1 - Ð˜Ð·Ð¼ÐµÐ½Ð¸Ñ‚ÑŒ ÐºÐ¾Ð»Ð¸Ñ‡ÐµÑÑ‚Ð²Ð¾ Ñ€Ð°Ð±Ð¾Ñ‚Ð°ÑŽÑ‰Ð¸Ñ… Ñ†ÐµÑ…Ð¾Ð²" << endl;
+    cout << "2 - Ð’ÐµÑ€Ð½ÑƒÑ‚ÑŒÑÑ Ð² Ð¼ÐµÐ½ÑŽ" << endl;
+    cout << "Ð’Ñ‹Ð±ÐµÑ€Ð¸Ñ‚Ðµ Ð´ÐµÐ¹ÑÑ‚Ð²Ð¸Ðµ: ";
 
     int choice;
     while (!(cin >> choice) || (choice != 1 && choice != 2)) {
-        cout << "Îøèáêà! Ââåäèòå 1 èëè 2: ";
+        cout << "ÐžÑˆÐ¸Ð±ÐºÐ°! Ð’Ð²ÐµÐ´Ð¸Ñ‚Ðµ 1 Ð¸Ð»Ð¸ 2: ";
         cin.clear();
         cin.ignore(1000, '\n');
     }
 
     if (choice == 1) {
-        cout << "Òåêóùåå ñîñòîÿíèå: " << cs.number_work_online
-            << " èç " << cs.number_work << " öåõîâ ðàáîòàþò" << endl;
-        cout << "1 - Çàïóñòèòü öåõ" << endl;
-        cout << "2 - Îñòàíîâèòü öåõ" << endl;
-        cout << "0 - Îòìåíà" << endl;
-        cout << "Âûáåðèòå äåéñòâèå: ";
+        cout << "Ð¢ÐµÐºÑƒÑ‰ÐµÐµ ÑÐ¾ÑÑ‚Ð¾ÑÐ½Ð¸Ðµ: " << cs.number_work_online
+            << " Ð¸Ð· " << cs.number_work << " Ñ†ÐµÑ…Ð¾Ð² Ñ€Ð°Ð±Ð¾Ñ‚Ð°ÑŽÑ‚" << endl;
+        cout << "1 - Ð—Ð°Ð¿ÑƒÑÑ‚Ð¸Ñ‚ÑŒ Ñ†ÐµÑ…" << endl;
+        cout << "2 - ÐžÑÑ‚Ð°Ð½Ð¾Ð²Ð¸Ñ‚ÑŒ Ñ†ÐµÑ…" << endl;
+        cout << "0 - ÐžÑ‚Ð¼ÐµÐ½Ð°" << endl;
+        cout << "Ð’Ñ‹Ð±ÐµÑ€Ð¸Ñ‚Ðµ Ð´ÐµÐ¹ÑÑ‚Ð²Ð¸Ðµ: ";
 
         int action;
         while (!(cin >> action) || action < 0 || action > 2) {
-            cout << "Îøèáêà! Ââåäèòå 0, 1 èëè 2: ";
+            cout << "ÐžÑˆÐ¸Ð±ÐºÐ°! Ð’Ð²ÐµÐ´Ð¸Ñ‚Ðµ 0, 1 Ð¸Ð»Ð¸ 2: ";
             cin.clear();
             cin.ignore(1000, '\n');
         }
@@ -208,36 +209,81 @@ void EditCS(CS& cs) {
         case 1:
             if (cs.number_work_online < cs.number_work) {
                 cs.number_work_online++;
-                cout << "Öåõ çàïóùåí! Òåïåðü ðàáîòàåò " << cs.number_work_online
-                    << " èç " << cs.number_work << " öåõîâ." << endl;
+                cout << "Ð¦ÐµÑ… Ð·Ð°Ð¿ÑƒÑ‰ÐµÐ½! Ð¢ÐµÐ¿ÐµÑ€ÑŒ Ñ€Ð°Ð±Ð¾Ñ‚Ð°ÐµÑ‚ " << cs.number_work_online
+                    << " Ð¸Ð· " << cs.number_work << " Ñ†ÐµÑ…Ð¾Ð²." << endl;
             }
             else {
-                cout << "Îøèáêà: Âñå öåõè óæå ðàáîòàþò!" << endl;
+                cout << "ÐžÑˆÐ¸Ð±ÐºÐ°: Ð’ÑÐµ Ñ†ÐµÑ…Ð¸ ÑƒÐ¶Ðµ Ñ€Ð°Ð±Ð¾Ñ‚Ð°ÑŽÑ‚!" << endl;
             }
             break;
 
         case 2:
             if (cs.number_work_online > 0) {
                 cs.number_work_online--;
-                cout << "Öåõ îñòàíîâëåí! Òåïåðü ðàáîòàåò " << cs.number_work_online
-                    << " èç " << cs.number_work << " öåõîâ." << endl;
+                cout << "Ð¦ÐµÑ… Ð¾ÑÑ‚Ð°Ð½Ð¾Ð²Ð»ÐµÐ½! Ð¢ÐµÐ¿ÐµÑ€ÑŒ Ñ€Ð°Ð±Ð¾Ñ‚Ð°ÐµÑ‚ " << cs.number_work_online
+                    << " Ð¸Ð· " << cs.number_work << " Ñ†ÐµÑ…Ð¾Ð²." << endl;
             }
             else {
-                cout << "Îøèáêà: Íåò ðàáîòàþùèõ öåõîâ!" << endl;
+                cout << "ÐžÑˆÐ¸Ð±ÐºÐ°: ÐÐµÑ‚ Ñ€Ð°Ð±Ð¾Ñ‚Ð°ÑŽÑ‰Ð¸Ñ… Ñ†ÐµÑ…Ð¾Ð²!" << endl;
             }
             break;
 
         case 0:
-            cout << "Îïåðàöèÿ îòìåíåíà." << endl;
+            cout << "ÐžÐ¿ÐµÑ€Ð°Ñ†Ð¸Ñ Ð¾Ñ‚Ð¼ÐµÐ½ÐµÐ½Ð°." << endl;
             break;
         }
     }
 
-    cout << "Íàæìèòå Enter äëÿ ïðîäîëæåíèÿ...";
+    cout << "ÐÐ°Ð¶Ð¼Ð¸Ñ‚Ðµ Enter Ð´Ð»Ñ Ð¿Ñ€Ð¾Ð´Ð¾Ð»Ð¶ÐµÐ½Ð¸Ñ...";
     cin.ignore(1000, '\n');
     while (cin.get() != '\n');
 }
 
+void SaveToFile(const Pipe& pipe, const CS& cs) {
+    ofstream outFile("data.txt", ios::binary);
+
+    if (!outFile.is_open()) {
+        cout << "ÐžÑˆÐ¸Ð±ÐºÐ°: ÐÐµ ÑƒÐ´Ð°Ð»Ð¾ÑÑŒ ÑÐ¾Ð·Ð´Ð°Ñ‚ÑŒ Ð¸Ð»Ð¸ Ð¾Ñ‚ÐºÑ€Ñ‹Ñ‚ÑŒ Ñ„Ð°Ð¹Ð»!" << endl;
+        cout << "ÐÐ°Ð¶Ð¼Ð¸Ñ‚Ðµ Enter Ð´Ð»Ñ Ð¿Ñ€Ð¾Ð´Ð¾Ð»Ð¶ÐµÐ½Ð¸Ñ...";
+        cin.ignore(1000, '\n');
+        while (cin.get() != '\n');
+        return;
+    }
+
+    outFile << "=== Pipeline system data ===" << endl;
+    outFile << "======================================" << endl << endl;
+
+    if (!pipe.Name.empty()) {
+        outFile << "Pipe" << endl;
+        outFile << "Name: " << pipe.Name << endl;
+        outFile << "Length: " << pipe.length << " km" << endl;
+        outFile << "Diameter: " << pipe.diametr << " mm" << endl;
+        outFile << "Status: " << (pipe.status ? "Not worked" : "Worked") << endl;
+        outFile << endl;
+    }
+    else {
+        outFile << "Ð¢Ñ€ÑƒÐ±Ð°: Ð½Ðµ Ð´Ð¾Ð±Ð°Ð²Ð»ÐµÐ½Ð°" << endl << endl;
+    }
+
+    if (!cs.Name.empty()) {
+        outFile << "CS" << endl;
+        outFile << "Name: " << cs.Name << endl;
+        outFile << "all workshop: " << cs.number_work << endl;
+        outFile << "Online workshop: " << cs.number_work_online << endl;
+        outFile << "Class: " << cs.class_cs << endl;
+        outFile << endl;
+    }
+    else {
+        outFile << "CS not found" << endl << endl;
+    }
+
+    outFile.close();
+
+    cout << "Ð”Ð°Ð½Ð½Ñ‹Ðµ ÑÐ¾Ñ…Ñ€Ð°Ð½ÐµÐ½Ñ‹ Ð² Ñ„Ð°Ð¹Ð» 'data.txt'!" << endl;
+    cout << "ÐÐ°Ð¶Ð¼Ð¸Ñ‚Ðµ Enter Ð´Ð»Ñ Ð¿Ñ€Ð¾Ð´Ð¾Ð»Ð¶ÐµÐ½Ð¸Ñ...";
+    cin.ignore(1000, '\n');
+    while (cin.get() != '\n');
+}
 
 void ShowMenu() {
     int options;
@@ -246,7 +292,7 @@ void ShowMenu() {
     CS cs;
     while (flag) {
         system("cls");
-        cout << "Ïðèìåð ìåíþ:\n 1. Äîáàâèòü òðóáó\n 2. Äîáàâèòü ÊÑ\n 3. Ïðîñìîòð âñåõ îáúåêòîâ\n 4. Ðåäàêòèðîâàòü òðóáó\n 5. Ðåäàêòèðîâàòü ÊÑ\n 6. Ñîõðàíèòü\n 7. Çàãðóçèòü\n 0. Âûõîä\n";
+        cout << "ÐŸÑ€Ð¸Ð¼ÐµÑ€ Ð¼ÐµÐ½ÑŽ:\n 1. Ð”Ð¾Ð±Ð°Ð²Ð¸Ñ‚ÑŒ Ñ‚Ñ€ÑƒÐ±Ñƒ\n 2. Ð”Ð¾Ð±Ð°Ð²Ð¸Ñ‚ÑŒ ÐšÐ¡\n 3. ÐŸÑ€Ð¾ÑÐ¼Ð¾Ñ‚Ñ€ Ð²ÑÐµÑ… Ð¾Ð±ÑŠÐµÐºÑ‚Ð¾Ð²\n 4. Ð ÐµÐ´Ð°ÐºÑ‚Ð¸Ñ€Ð¾Ð²Ð°Ñ‚ÑŒ Ñ‚Ñ€ÑƒÐ±Ñƒ\n 5. Ð ÐµÐ´Ð°ÐºÑ‚Ð¸Ñ€Ð¾Ð²Ð°Ñ‚ÑŒ ÐšÐ¡\n 6. Ð¡Ð¾Ñ…Ñ€Ð°Ð½Ð¸Ñ‚ÑŒ\n 7. Ð—Ð°Ð³Ñ€ÑƒÐ·Ð¸Ñ‚ÑŒ\n 0. Ð’Ñ‹Ñ…Ð¾Ð´\n";
         cin >> options;
         switch (options) {
         case 0:
@@ -255,11 +301,11 @@ void ShowMenu() {
             break;
         case 1:
             Addpipe(pipe);       
-            cout << "Òðóáà óñïåøíî äîáàâëåíà!" << endl;
+            cout << "Ð¢Ñ€ÑƒÐ±Ð° ÑƒÑÐ¿ÐµÑˆÐ½Ð¾ Ð´Ð¾Ð±Ð°Ð²Ð»ÐµÐ½Ð°!" << endl;
             break;
         case 2:
             Addcs(cs);
-            cout << "ÊÑ óñïåøíî äîáàâëåíà!" << endl;
+            cout << "ÐšÐ¡ ÑƒÑÐ¿ÐµÑˆÐ½Ð¾ Ð´Ð¾Ð±Ð°Ð²Ð»ÐµÐ½Ð°!" << endl;
             break;
 
         case 3:
@@ -271,6 +317,9 @@ void ShowMenu() {
         case 5:
             EditCS(cs);
             break;
+        case 6:
+            SaveToFile(pipe, cs);
+            break;
         }
     }
 }
@@ -278,8 +327,8 @@ void ShowMenu() {
 int main()
 {
     setlocale(LC_ALL, "Russian");
-    SetConsoleCP(1251);
-    SetConsoleOutputCP(1251);
+    SetConsoleOutputCP(65001);
+    SetConsoleCP(65001);
     ShowMenu();
 
 }
