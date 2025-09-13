@@ -30,14 +30,14 @@ void Addpipe(Pipe& pipe) {
     }
     cout << "Введите диаметр трубы (мм): ";
     while (!(cin >> pipe.diametr) || pipe.diametr <= 0 || cin.peek() != '\n') {
-        cout << "Ошибка! Введите положительное число: ";
+        cout << "Ошибка! Введите положительное целое число: ";
         cin.clear();
         cin.ignore(1000, '\n');
     }
 
     cout << "Труба в ремонте? (1 - да, 0 - нет): ";
     int repairStatus;
-    while (!(cin >> repairStatus) || (repairStatus != 0 && repairStatus != 1)) {
+    while (!(cin >> repairStatus) || (repairStatus != 0 && repairStatus != 1) || cin.peek() != '\n') {
         cout << "Ошибка! Введите 0 или 1: ";
         cin.clear();
         cin.ignore(1000, '\n');
@@ -131,7 +131,7 @@ void EditPipe(Pipe& pipe) {
     cout << "Выберите действие: ";
 
     int choice;
-    while (!(cin >> choice) || (choice != 1 && choice != 2)) {
+    while (!(cin >> choice) || (choice != 1 && choice != 2) || cin.peek() != '\n') {
         cout << "Ошибка! Введите 1 или 2: ";
         cin.clear();
         cin.ignore(1000, '\n');
@@ -142,7 +142,7 @@ void EditPipe(Pipe& pipe) {
         cout << "Изменить статус? (1 - да, 0 - нет): ";
 
         int change;
-        while (!(cin >> change) || (change != 0 && change != 1)) {
+        while (!(cin >> change) || (change != 0 && change != 1) || cin.peek() != '\n') {
             cout << "Ошибка! Введите 0 или 1: ";
             cin.clear();
             cin.ignore(1000, '\n');
@@ -199,7 +199,7 @@ void EditCS(CS& cs) {
         cout << "Выберите действие: ";
 
         int action;
-        while (!(cin >> action) || action < 0 || action > 2) {
+        while (!(cin >> action) || action < 0 || action > 2 || cin.peek() != '\n') {
             cout << "Ошибка! Введите 0, 1 или 2: ";
             cin.clear();
             cin.ignore(1000, '\n');
@@ -371,11 +371,10 @@ void ShowMenu() {
     while (flag) {
         system("cls");
         cout << "Пример меню:\n 1. Добавить трубу\n 2. Добавить КС\n 3. Просмотр всех объектов\n 4. Редактировать трубу\n 5. Редактировать КС\n 6. Сохранить\n 7. Загрузить\n 0. Выход\n";
-        cin >> options;
-        while (!(cin >> options) || options < 0 || options > 7) {
+        while (!(cin >> options) || options < 0 || options > 7 || cin.peek() != '\n') {
             cout << "Ошибка! Введите число от 0 до 7: ";
             cin.clear();
-            cin.ignore(1000, '\n');
+            while (cin.get() != '\n');
         }
         switch (options) {
         case 0:
