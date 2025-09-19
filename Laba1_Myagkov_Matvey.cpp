@@ -18,16 +18,25 @@ struct CS {
 void Addpipe(Pipe& pipe) {
     system("cls");
     cout << "=== Добавление трубы ===" << endl;
+
+    cin.clear();
+    cin.ignore(1000, '\n');
+
     cout << "Введите километровую отметку (Название трубы): ";
-    cin.ignore();
-    cin >> pipe.Name;
+    getline(cin, pipe.Name);
+
+    while (pipe.Name.empty()) {
+        cout << "Ошибка! Название не может быть пустым. Введите снова: ";
+        getline(cin, pipe.Name);
+    }
+
     cout << "Введите длину трубы (км): ";
-    while (!(cin >> pipe.length) || pipe.length <= 0) {
+    while (!(cin >> pipe.length) || pipe.length <= 0 || cin.peek() != '\n') {
         cout << "Ошибка! Введите положительное число: ";
         cin.clear();
         cin.ignore(1000, '\n');
-
     }
+
     cout << "Введите диаметр трубы (мм): ";
     while (!(cin >> pipe.diametr) || pipe.diametr <= 0 || cin.peek() != '\n') {
         cout << "Ошибка! Введите положительное целое число: ";
@@ -44,31 +53,57 @@ void Addpipe(Pipe& pipe) {
     }
     pipe.status = (repairStatus == 1);
 
+    cin.ignore(1000, '\n');
 }
 
 void Addcs(CS& cs) {
     system("cls");
     cout << "=== Добавление КС ===" << endl;
+
+    cin.clear();
+    cin.ignore(1000, '\n');
+
     cout << "Введите название КС: ";
-    cin.ignore();
-    cin >> cs.Name;
+    getline(cin, cs.Name);
+
+    while (cs.Name.empty()) {
+        cout << "Ошибка! Название не может быть пустым. Введите снова: ";
+        getline(cin, cs.Name);
+    }
+
     cout << "Введите количество цехов: ";
     while (!(cin >> cs.number_work) || cs.number_work <= 0 || cin.peek() != '\n') {
         cout << "Ошибка! Введите положительное целое число: ";
         cin.clear();
         cin.ignore(1000, '\n');
-
     }
+
     cout << "Введите количество работающих цехов: ";
-    while (!(cin >> cs.number_work_online) || cs.number_work_online < 0 || cin.peek() != '\n' || cs.number_work < cs.number_work_online) {
-        cout << "Ошибка! Введите положительное целое число (Работающие цеха не могут превышать количество цехов): ";
+    while (!(cin >> cs.number_work_online) || cs.number_work_online < 0 ||
+        cs.number_work_online > cs.number_work || cin.peek() != '\n') {
+        if (cin.fail()) {
+            cout << "Ошибка! Введите целое число: ";
+        }
+        else if (cs.number_work_online > cs.number_work) {
+            cout << "Ошибка! Работающие цеха не могут превышать общее количество цехов ("
+                << cs.number_work << "). Введите снова: ";
+        }
+        else {
+            cout << "Ошибка! Введите неотрицательное число: ";
+        }
         cin.clear();
         cin.ignore(1000, '\n');
     }
-    cout << "Введите класс станций(некий показатель, обобщающий различные специфические характеристики): ";
-    cin.ignore();
-    cin >> cs.class_cs;
 
+    cin.ignore(1000, '\n');
+
+    cout << "Введите класс станций (некий показатель, обобщающий различные специфические характеристики): ";
+    getline(cin, cs.class_cs);
+
+    while (cs.class_cs.empty()) {
+        cout << "Ошибка! Класс станции не может быть пустым. Введите снова: ";
+        getline(cin, cs.class_cs);
+    }
 }
 
 void ViewAllObjects(const Pipe& pipe, const CS& cs) {

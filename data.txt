@@ -2,14 +2,14 @@
 ======================================
 
 Pipe
-Name: q
+Name: 1
 Length: 1 km
 Diameter: 1 mm
 Status: Not worked
 
 CS
-Name: 666
-all workshop: 666
-Online workshop: 666
-Class: 666
+Name: 1
+all workshop: 1
+Online workshop: 1
+Class: 1
 
